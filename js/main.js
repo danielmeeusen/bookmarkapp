@@ -7,8 +7,10 @@ function saveBookmark(e) {
     var siteName = document.getElementById('siteName').value;
     var siteUrl = document.getElementById('siteUrl').value;
 
-    validateForm(siteName, siteUrl);
-
+    if(!validateForm(siteName, siteUrl)){
+        return false;
+    }
+ 
     var bookmark = {
         name: siteName,
         url: siteUrl
@@ -30,6 +32,7 @@ function saveBookmark(e) {
         // re-set back to localStorage
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     }
+
 
     //clear form
     document.getElementById('myForm').reset();
@@ -80,26 +83,36 @@ function fetchBookmarks() {
 }
 
 function validateForm(siteName, siteUrl) {
-    if (!siteName || !siteUrl) {
-        showMessage('Please enter Website Name and URL', 'alert-danger');
-        return false;
-    }
 
-    var expression = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-
+    var expression = /^((http|https)(:\/\/))?(www.)?([^.]+)(.\w{2,6})(.\w{2,6})?$/i
     var regex = new RegExp(expression);
 
-    if(!siteUrl.match(regex)){
-        showMessage('Please enter valid URL', 'alert-danger');
-        return false;
+    if (!siteName || !siteUrl) {
+        showMessage('Please enter Website Name and URL');
+    } else if (!siteUrl.match(regex)){
+        showMessage('Please enter valid URL');
     }
 }
 
-function showMessage(message, className) {
+function showMessage(message) {
+
+    var check = document.getElementById('errorMessage');
+    
+    if(check) {
+        if (check.innerHTML === message) {
+            console.log(check.innerHTML);
+        } else {
+            const jumbotron = document.querySelector('.jumbotron');
+            jumbotron.removeChild(check);    
+            showMessage(message);
+        }
+    } else {
     // create div
     const div = document.createElement('div');
     // add classes
-    div.className = `alert ${className}`;
+    div.className = `alert alert-danger`;
+
+    div.id = "errorMessage";
     // add text
     div.appendChild(document.createTextNode(message));
     // get parent
@@ -108,6 +121,5 @@ function showMessage(message, className) {
     const myForm = document.getElementById('myForm');
     // insert message
     jumbotron.insertBefore(div, myForm);
-    // timeout alert
-    setTimeout(() => document.querySelector('.alert').remove(), 5000);
+    }
 }
