@@ -12,8 +12,8 @@ function saveBookmark(e) {
     console.log(validateForm(siteName, siteUrl));   
 
     if(!validateForm(siteName, siteUrl)){
-        return false;
         e.preventDefault();
+        return false;
     } else {
         fetchBookmarks();
     }
@@ -38,9 +38,11 @@ function saveBookmark(e) {
         // re-set back to localStorage
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     }    
-    // fetchBookmarks();
+    fetchBookmarks();
     //clear form
     document.getElementById('myForm').reset();
+
+    e.preventDefault();
 }
 
 //delete bookmark
