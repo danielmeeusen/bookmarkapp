@@ -38,7 +38,7 @@ function saveBookmark(e) {
         // re-set back to localStorage
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     }    
-    fetchBookmarks();
+    // fetchBookmarks();
     //clear form
     document.getElementById('myForm').reset();
 
