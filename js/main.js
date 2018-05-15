@@ -9,12 +9,12 @@ function saveBookmark(e) {
 
     siteUrl = fixUrl(siteUrl);
 
-    console.log("update1");
+    console.log("update2");
 
     if(!validateForm(siteName, siteUrl)){
         e.preventDefault();
         return false;
-    } else {
+    }
   
     var bookmark = {
         name: siteName,
@@ -36,12 +36,12 @@ function saveBookmark(e) {
         // re-set back to localStorage
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     }    
-    // fetchBookmarks();
+    
+    fetchBookmarks();
     //clear form
     document.getElementById('myForm').reset();
 
     e.preventDefault();
-    }
 }
 
 //delete bookmark
@@ -95,6 +95,7 @@ function validateForm(siteName, siteUrl) {
         showMessage('Please enter valid URL');
         return false;
     } else {
+        messageCheck();
         return true;
     }
 }
@@ -109,18 +110,16 @@ function fixUrl(url){
 
 function showMessage(message) {
 
-    var check = document.getElementById('errorMessage');
+    messageCheck();
 
     const jumbotron = document.querySelector('.jumbotron');
 
-    jumbotron.removeChild(check);    
-
     // create div
     const div = document.createElement('div');
-    // add classes
-    div.className = `alert alert-danger`;
 
     div.id = "errorMessage";
+    // add classes
+    div.className = `alert alert-danger`;    
     // add text
     div.appendChild(document.createTextNode(message));
     // get myForm
@@ -128,4 +127,14 @@ function showMessage(message) {
     // insert message
     jumbotron.insertBefore(div, myForm);
     
+}
+
+function messageCheck() {
+    var check = document.getElementById('errorMessage');
+
+    const jumbotron = document.querySelector('.jumbotron');
+
+    if (check) {
+    jumbotron.removeChild(check);  
+    }  
 }
