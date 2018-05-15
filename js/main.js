@@ -9,6 +9,8 @@ function saveBookmark(e) {
 
     siteUrl = fixUrl(siteUrl);
 
+    console.log(update1);
+
     if(!validateForm(siteName, siteUrl)){
         e.preventDefault();
         return false;
