@@ -9,7 +9,7 @@ function saveBookmark(e) {
 
     siteUrl = fixUrl(siteUrl);
 
-    console.log("update2");
+    // console.log("update2");
 
     if(!validateForm(siteName, siteUrl)){
         e.preventDefault();
@@ -36,7 +36,7 @@ function saveBookmark(e) {
         // re-set back to localStorage
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     }    
-    
+
     fetchBookmarks();
     //clear form
     document.getElementById('myForm').reset();
