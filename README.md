@@ -1,3 +1,3 @@
 # Bookmark App
 
-Preview this repository: https://dutchbones.github.io/bookmarkapp/
+Preview this repository: https://danielmeeusen.github.io/bookmarkapp/
